@@ -1,5 +1,6 @@
 package com.mirea.attendancesystembackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,10 +21,13 @@ public class Gate {
 
     private String name;
 
+    @JsonIgnore()
     @OneToMany(mappedBy = "gate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Attendance> attendances;
 
     public Gate(String name) {
         this.name = name;
     }
+
+
 }

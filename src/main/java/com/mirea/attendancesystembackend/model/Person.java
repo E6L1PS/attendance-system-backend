@@ -21,6 +21,8 @@ public class Person {
 
     private String name;
 
+    private Character gender;
+
     @JsonIgnore()
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Attendance> attendances;
