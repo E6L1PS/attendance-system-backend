@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,23 +24,30 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "person_uid")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_uid", nullable = false, updatable = false)
     private Person person;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "gate_id", nullable = false, updatable = false)
+    private Gate gate;
 
     private Boolean status;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
     private LocalDateTime date;
+
+    public Attendance(Person personByUid, Gate gateByName, boolean status) {
+        this.person = personByUid;
+        this.gate = gateByName;
+        this.status = status;
+    }
 
     @PrePersist
     private void init() {
         date = LocalDateTime.now();
     }
 
-    public Attendance(Person person, Boolean status) {
-        this.person = person;
-        this.status = status;
-    }
 }

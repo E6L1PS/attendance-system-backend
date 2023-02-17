@@ -19,9 +19,9 @@ public class AttendanceController {
         return attendanceService.getAttendance();
     }
 
-    @PostMapping("/add/{uid}")
-    public void addAttendance(@PathVariable Long uid) {
-        attendanceService.addAttendance(uid);
+    @PostMapping("/add/{uid}/{gateName}")
+    public void addAttendance(@PathVariable Long uid, @PathVariable String gateName) {
+        attendanceService.addAttendance(uid, gateName);
     }
 
 }
