@@ -16,10 +16,13 @@ import java.util.List;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
     private String name;
+
+    private String lastName;
+
+    private String jobTitle;
 
     private Character gender;
 

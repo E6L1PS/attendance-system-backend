@@ -19,6 +19,11 @@ public class PersonController {
         return personService.getAll();
     }
 
+    @GetMapping("/{uid}")
+    public Person getPerson(@PathVariable Long uid) {
+        return personService.getPerson(uid);
+    }
+
     @PostMapping("/add")
     public void addPerson(@RequestBody Person person) {
         personService.addPerson(person);
@@ -28,6 +33,13 @@ public class PersonController {
     public void addPerson(@PathVariable String name) {
         personService.addPerson(new Person(name));
     }
-
+    @PutMapping("/update")
+    public void updatePerson(@RequestBody Person person) {
+        personService.updatePerson(person);
+    }
+    @DeleteMapping("/delete/{uid}")
+    public void deletePerson(@PathVariable Long uid) {
+        personService.deletePersonByUid(uid);
+    }
 
 }
