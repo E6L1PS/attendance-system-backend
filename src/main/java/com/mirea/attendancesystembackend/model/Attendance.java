@@ -28,6 +28,8 @@ public class Attendance {
     @JoinColumn(name = "person_uid", nullable = false, updatable = false)
     private Person person;
 
+
+    //TODO delete query
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gate_id", nullable = false, updatable = false)
     private Gate gate;
