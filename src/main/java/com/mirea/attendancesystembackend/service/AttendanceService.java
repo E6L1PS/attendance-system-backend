@@ -58,7 +58,7 @@ public class AttendanceService {
     @Transactional(readOnly = true)
     public List<LocalTime> getTime(Long uid) {
         Person person = personRepository.findPersonByUid(uid);
-        List<PGInterval> durations = attendanceRepository.findDurationListByStatusAndPersonId(person);
+        List<PGInterval> durations = attendanceRepository.findDurationListByStatusAndPersonId(person, LocalDate.now().toString());
 
         return durations.stream()
                 .map(interval -> {
@@ -88,7 +88,18 @@ public class AttendanceService {
         List<Date> dates = attendanceRepository.getDates(person);
 
         List<DateDTO> dateDTOS = new ArrayList<>();
-        dates.forEach(date -> dateDTOS.add(new DateDTO(date, attendanceRepository.countHoursForDate(person, date.toString()))));
+        dates.forEach(date ->
+                dateDTOS.add(
+                        new DateDTO(date,
+                                attendanceRepository.findDurationListByStatusAndPersonId(person, date.toString())
+                                        .stream()
+                                        .map(interval -> {
+                                            double seconds = interval.getSeconds();
+                                            int minutes = interval.getMinutes();
+                                            int hours = interval.getHours();
+                                            return LocalTime.of(hours, minutes, Double.valueOf(seconds).intValue());
+                                        })
+                                        .collect(Collectors.toList()))));
         return dateDTOS;
     }
 }

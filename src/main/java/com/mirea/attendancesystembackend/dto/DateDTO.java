@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -12,5 +13,5 @@ import java.util.List;
 public class DateDTO {
 
     private Date date;
-    private List<LocalDateTime> dateTimeList;
+    private List<LocalTime> dateTimeList;
 }

@@ -26,14 +26,21 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     @Query("select a.date from Attendance a where a.person = :person order by a.date asc")
     List<LocalDateTime> getDatesByUid(@Param("person") Person person);
 
-    @Query("SELECT AGE(t2.date, t1.date) FROM Attendance t1 JOIN Attendance t2 ON t1.id = t2.id - 1 WHERE t1.person = :person AND t1.status = true AND t2.status = false ORDER BY t1.date")
-    List<PGInterval> findDurationListByStatusAndPersonId(@Param("person") Person person);
+    @Query("SELECT AGE(t2.date, t1.date) " +
+            "FROM Attendance t1 " +
+            "JOIN Attendance t2 ON t1.id = t2.id - 1 " +
+            "WHERE t1.person = :person " +
+            "AND TO_CHAR(t1.date, 'yyyy-MM-dd') LIKE :date " +
+            "AND t1.status = true " +
+            "AND t2.status = false " +
+            "ORDER BY t1.date")
+    List<PGInterval> findDurationListByStatusAndPersonId(@Param("person") Person person, @Param("date") String date);//все интервалы PGInterval by person
 
 
     @Query("select a.date from Attendance a where a.person = :person AND TO_CHAR(a.date, 'yyyy-MM-dd') LIKE :date  order by a.date asc")
-    List<LocalDateTime> countHoursForDate(@Param("person") Person person, @Param("date") String date);
+    List<LocalDateTime> countHoursForDate(@Param("person") Person person, @Param("date") String date);//все LocalDateTime по Date by person
 
     @Query("SELECT DISTINCT DATE(a.date) FROM Attendance a WHERE a.person = :person")
-    List<Date> getDates(@Param("person") Person person);
+    List<Date> getDates(@Param("person") Person person);//все уникальные Date by person
 
 }
