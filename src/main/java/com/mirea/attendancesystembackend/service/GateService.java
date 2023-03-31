@@ -2,19 +2,21 @@ package com.mirea.attendancesystembackend.service;
 
 import com.mirea.attendancesystembackend.model.Gate;
 import com.mirea.attendancesystembackend.repository.GateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+@Log4j2
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class GateService {
 
-    @Autowired
-    private GateRepository gateRepository;
+    private final GateRepository gateRepository;
 
     public void addGate(String name) {
         gateRepository.save(new Gate(name));

@@ -7,9 +7,9 @@ import com.mirea.attendancesystembackend.model.Person;
 import com.mirea.attendancesystembackend.repository.AttendanceRepository;
 import com.mirea.attendancesystembackend.repository.GateRepository;
 import com.mirea.attendancesystembackend.repository.PersonRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.postgresql.util.PGInterval;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,18 +25,16 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Log4j2
-@Transactional
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class AttendanceService {
 
-    @Autowired
-    private AttendanceRepository attendanceRepository;
+    private final AttendanceRepository attendanceRepository;
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private GateRepository gateRepository;
+    private final GateRepository gateRepository;
 
     @Transactional(readOnly = true)
     public List<Attendance> getAttendances() {

@@ -3,21 +3,20 @@ package com.mirea.attendancesystembackend.controller;
 import com.mirea.attendancesystembackend.dto.DateDTO;
 import com.mirea.attendancesystembackend.model.Attendance;
 import com.mirea.attendancesystembackend.service.AttendanceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/at")
 public class AttendanceController {
 
-    @Autowired
-    private AttendanceService attendanceService;
+    private final AttendanceService attendanceService;
 
     @GetMapping("/all")
     public List<Attendance> getAttendances() {

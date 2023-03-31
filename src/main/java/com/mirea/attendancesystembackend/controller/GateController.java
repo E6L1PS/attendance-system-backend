@@ -2,18 +2,18 @@ package com.mirea.attendancesystembackend.controller;
 
 import com.mirea.attendancesystembackend.model.Gate;
 import com.mirea.attendancesystembackend.service.GateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/gate")
 public class GateController {
 
-    @Autowired
-    private GateService gateService;
+    private final GateService gateService;
 
     @PostMapping("/new/{name}")
     public void createGate(@PathVariable String name) {
