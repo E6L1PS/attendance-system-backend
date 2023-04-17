@@ -8,26 +8,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/gate")
-public class GateController {
+    @RestController
+    @RequiredArgsConstructor
+    @RequestMapping("/api/v1/gate")
+    public class GateController {
 
-    private final GateService gateService;
+        private final GateService gateService;
 
-    @PostMapping("/new/{name}")
-    public void createGate(@PathVariable String name) {
-        gateService.addGate(name);
+        @GetMapping
+        public List<Gate> getGates() {
+            return gateService.getAll(Sort.by("name"));
+        }
+
+        @PostMapping("/{name}")
+        public void createGate(@PathVariable String name) {
+            gateService.addGate(name);
+        }
+
+        @DeleteMapping("/{name}")
+        public void deleteGate(@PathVariable String name) {
+            gateService.deleteGate(name);
+        }
+
     }
-
-    @GetMapping("/get")
-    public List<Gate> getGates() {
-        return gateService.getAll(Sort.by("name"));
-    }
-
-    @DeleteMapping("/delete/{name}")
-    public void deleteGate(@PathVariable String name) {
-        gateService.deleteGate(name);
-    }
-
-}

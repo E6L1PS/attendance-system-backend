@@ -5,20 +5,16 @@ import com.mirea.attendancesystembackend.model.Attendance;
 import com.mirea.attendancesystembackend.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/at")
+@RequestMapping("/api/v1/attendance")
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Attendance> getAttendances() {
         return attendanceService.getAttendances();
     }
@@ -28,26 +24,19 @@ public class AttendanceController {
         return attendanceService.getAttendancesByUid(uid);
     }
 
-    @GetMapping("/times/{uid}")
-    public List<LocalTime> getAttendanceTimeByUid(@PathVariable Long uid) {
-        return attendanceService.getTime(uid);
-    }
-
-    @GetMapping("/perday/{uid}/{date}")
-    public Duration getHoursWorkedPerDayByUid(@PathVariable Long uid, @PathVariable LocalDate date) {
-        return attendanceService.countHoursForDate(uid, date);
-    }
-
     @GetMapping("/dates/{uid}")
     public List<DateDTO> getAllByUid(@PathVariable Long uid) {
-        return attendanceService.getAllByUid(uid);
+        return attendanceService.getAllIntervalsByUid(uid);
     }
 
-
-    //TODO количество посещений по айди
-    @PostMapping("/add/{uid}/{gateName}")
+    @PostMapping("/{uid}/{gateName}")
     public void addAttendance(@PathVariable Long uid, @PathVariable String gateName) {
         attendanceService.addAttendance(uid, gateName);
+    }
+
+    @DeleteMapping
+    public void deleteAllAttendances() {
+        attendanceService.deleteAll();
     }
 
 }

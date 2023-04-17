@@ -26,7 +26,6 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-
     public Person getPerson(Long uid) {
         log.info(" called getPerson");
         return personRepository.findPersonByUid(uid);
@@ -38,8 +37,8 @@ public class PersonService {
     }
 
     public void updatePerson(Person person) {
-
         log.info(" called updatePerson");
         personRepository.updatePeron(person.getUid(), person.getName(), person.getLastName(), person.getJobTitle(), person.getGender());
     }
+
 }

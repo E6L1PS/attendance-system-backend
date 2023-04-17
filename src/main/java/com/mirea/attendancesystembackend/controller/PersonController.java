@@ -9,12 +9,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/person")
+@RequestMapping("/api/v1/person")
 public class PersonController {
 
     private final PersonService personService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Person> getPersons() {
         return personService.getAll();
     }
@@ -24,22 +24,17 @@ public class PersonController {
         return personService.getPerson(uid);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public void addPerson(@RequestBody Person person) {
         personService.addPerson(person);
     }
 
-    @PostMapping("/add/{name}")
-    public void addPerson(@PathVariable String name) {
-        personService.addPerson(new Person(name));
-    }
-
-    @PutMapping("/update")
+    @PutMapping
     public void updatePerson(@RequestBody Person person) {
         personService.updatePerson(person);
     }
 
-    @DeleteMapping("/delete/{uid}")
+    @DeleteMapping("/{uid}")
     public void deletePerson(@PathVariable Long uid) {
         personService.deletePersonByUid(uid);
     }

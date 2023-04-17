@@ -18,17 +18,17 @@ public class GateService {
 
     private final GateRepository gateRepository;
 
+    @Transactional(readOnly = true)
+    public List<Gate> getAll(Sort sort) {
+        return gateRepository.findAll(sort);
+    }
+
     public void addGate(String name) {
-        gateRepository.save(new Gate(name));
+        gateRepository.save(Gate.builder().name(name).build());
     }
 
     public void deleteGate(String name) {
         gateRepository.deleteByName(name);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Gate> getAll(Sort sort) {
-        return gateRepository.findAll(sort);
     }
 
 }
