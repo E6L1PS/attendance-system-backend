@@ -6,4 +6,5 @@
 + [Мобильный клиент](https://github.com/E6L1PS/attendance-system-mobile)
 ## Контактная информация:
 ФИО: Пестерников Данил Юрьевич
+
 Почта: danils003@mail.ru
